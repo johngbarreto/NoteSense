@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FFBACCB42FBFB77D00268CA1 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = FFE500912FB24C45005E0E31 /* ComposableArchitecture */; };
+		FFBACCB52FBFB77D00268CA1 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = FFE500922FB24C45005E0E31 /* ComposableArchitecture */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		FFE500732FB24C44005E0E31 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -52,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFBACCB42FBFB77D00268CA1 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFBACCB52FBFB77D00268CA1 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +119,7 @@
 			);
 			name = NoteSense;
 			packageProductDependencies = (
+				FFE500912FB24C45005E0E31 /* ComposableArchitecture */,
 			);
 			productName = NoteSense;
 			productReference = FFE500632FB24C43005E0E31 /* NoteSense.app */;
@@ -135,6 +143,7 @@
 			);
 			name = NoteSenseTests;
 			packageProductDependencies = (
+				FFE500922FB24C45005E0E31 /* ComposableArchitecture */,
 			);
 			productName = NoteSenseTests;
 			productReference = FFE500722FB24C44005E0E31 /* NoteSenseTests.xctest */;
@@ -195,6 +204,9 @@
 			);
 			mainGroup = FFE5005A2FB24C42005E0E31;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FFE500902FB24C45005E0E31 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FFE500642FB24C43005E0E31 /* Products */;
 			projectDirPath = "";
@@ -414,7 +426,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -446,7 +457,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
@@ -578,6 +588,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FFE500902FB24C45005E0E31 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.17.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FFE500912FB24C45005E0E31 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FFE500902FB24C45005E0E31 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+		FFE500922FB24C45005E0E31 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FFE500902FB24C45005E0E31 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FFE5005B2FB24C42005E0E31 /* Project object */;
 }
