@@ -2,6 +2,7 @@ import ComposableArchitecture
 
 @Reducer
 struct RecordingFeature {
+    
   @ObservableState
   struct State: Equatable {
     var statusMessage = "Ready to record"

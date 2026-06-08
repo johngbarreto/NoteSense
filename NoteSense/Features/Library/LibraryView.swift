@@ -6,27 +6,35 @@ struct LibraryView: View {
 
   var body: some View {
     Group {
-      if store.isLoading && store.notes.isEmpty {
+      switch store.viewMode {
+      case .loading:
         ProgressView("Loading notes…")
-      } else if let errorMessage = store.errorMessage, store.notes.isEmpty {
+
+      case .error(let message):
         ContentUnavailableView {
           Label("Could Not Load", systemImage: "exclamationmark.triangle")
         } description: {
-          Text(errorMessage)
+          Text(message)
         } actions: {
           Button("Try Again") { store.send(.reloadNotesRequested) }
         }
-      } else if store.filteredNotes.isEmpty {
+
+      case .empty(let isSearching):
         ContentUnavailableView {
           Label("Voice Notes", systemImage: "books.vertical")
         } description: {
-          Text(store.searchQuery.isEmpty ? "Record a note or add a sample to get started." : "No notes match your search.")
+          Text(
+            isSearching
+              ? "No notes match your search."
+              : "Record a note or add a sample to get started."
+          )
         } actions: {
-          if store.searchQuery.isEmpty {
+          if !isSearching {
             Button("Add Sample Note") { store.send(.addSampleNoteTapped) }
           }
         }
-      } else {
+
+      case .list:
         List {
           ForEach(store.filteredNotes) { note in
             VoiceNoteRow(note: note)
