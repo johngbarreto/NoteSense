@@ -22,6 +22,7 @@ struct NoteSenseApp: App {
         AppFeature()
       } withDependencies: {
         $0.persistenceClient = .live(container: container)
+        $0.audioRecorderClient = .live()
       }
     )
   }
