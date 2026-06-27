@@ -15,6 +15,13 @@ struct RecordingView: View {
         .multilineTextAlignment(.center)
         .foregroundStyle(.secondary)
         .padding(.horizontal)
+        
+        
+        Text(store.transcript)
+            .font(.footnote)
+          .multilineTextAlignment(.center)
+          .foregroundStyle(.secondary)
+          .padding(.horizontal)
 
       Button(store.recordButtonTitle) {
         store.send(.recordButtonTapped)
