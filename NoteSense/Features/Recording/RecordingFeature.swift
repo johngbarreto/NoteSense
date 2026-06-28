@@ -64,7 +64,7 @@ struct RecordingFeature {
     
     @Dependency(\.audioRecorderClient) var audioRecorder
     @Dependency(\.persistenceClient) var persistence
-    @Dependency(\.speechRecognizeClient) var speech
+    @Dependency(\.speechRecognizerClient) var speech
     
     var body: some ReducerOf<Self> {
         Reduce { state, action in
@@ -81,8 +81,8 @@ struct RecordingFeature {
                 case .idle:
                     state.errorMessage = nil
                     return .run { send in
-                        let granted = await audioRecorder.requestPermission()
-                        guard granted else {
+                        let micGranted = await audioRecorder.requestPermission()
+                        guard micGranted else {
                             await send(
                                 .recordingStartFailed(
                                     "Microphone access is required to record voice notes."
@@ -90,7 +90,17 @@ struct RecordingFeature {
                             )
                             return
                         }
-                        
+
+                        let speechGranted = await speech.requestAuthorization()
+                        guard speechGranted else {
+                            await send(
+                                .recordingStartFailed(
+                                    "Speech recognition access is required to transcribe voice notes."
+                                )
+                            )
+                            return
+                        }
+
                         do {
                             try await audioRecorder.startRecording()
                             await send(.recordingStarted)
@@ -107,6 +117,7 @@ struct RecordingFeature {
                         .cancel(id: CancelID.transcript),
                         .run { send in
                             do {
+                                try await speech.stopTranscribing()
                                 let path = try await audioRecorder.stopRecording()
                                 let note = VoiceNoteSummary(
                                     id: UUID(),
@@ -140,10 +151,14 @@ struct RecordingFeature {
                         .cancellable(id: CancelID.meter, cancelInFlight: true),
                     
                         .run { send in
-                            let fakeWords = ["Note","About","Life"]
-                            for word in fakeWords {
-                                try await Task.sleep(for: .milliseconds(800))
-                                await send(.transcriptUpdate(word))
+                            let stream = speech.transcriptStream()
+                            do {
+                                try await speech.startTranscribing()
+                                for await text in stream {
+                                    await send(.transcriptUpdate(text))
+                                }
+                            } catch {
+                                // Audio still records if speech fails to start.
                             }
                         }
                         .cancellable(id: CancelID.transcript, cancelInFlight: true)

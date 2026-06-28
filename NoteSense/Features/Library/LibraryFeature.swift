@@ -48,11 +48,13 @@ struct LibraryFeature {
         case noteDeleteCompleted(NoteDeleteResult)
     }
 
+    @CasePathable
     enum NotesLoadResult: Equatable {
         case success([VoiceNoteSummary])
         case failure(String)
     }
 
+    @CasePathable
     enum NoteDeleteResult: Equatable {
         case success
         case failure(String)
